@@ -3,6 +3,7 @@ This project aims to automate tasks in a group study session for coding test. A 
 
 ## Features
 - Execute run.sh, and the bot will detect newly solved coding test problems in the desginated local git repository and send messages on discord servers.
+![image](https://github.com/keo88/miracle-coding-bot/assets/37448765/b4051225-01c8-43b6-872d-f692fe31e51e)
 
 ## Installation
 1. Fill in the details in .env.example. You will need **discord bot token** and **git repository path**(A git repo where you keep your coding test solutions).
