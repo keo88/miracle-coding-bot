@@ -16,13 +16,16 @@ arg_message_content = ''
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
-    git_channels = []
+    git_channels = set()
     for guild in bot.guilds:
         for channel in guild.text_channels:
             if channel.name.find('git') != -1:
-                git_channels.append(channel)
-
-    await send_message_to_discord(arg_message_content, git_channels[0] if len(git_channels) > 0 else None)
+                git_channels.add(channel)
+            elif channel.name.find('leetcode') != -1:
+                git_channels.add(channel)
+    
+    for text_channel in git_channels:
+        await send_message_to_discord(arg_message_content, text_channel)
     await bot.close()
 
 
@@ -32,11 +35,6 @@ async def send_message_to_discord(message_content, channel=None):
         await channel.send(message_content)
     else:
         print("Channel not found.")
-
-
-# @bot.command()
-# async def sendmessage(ctx, message_content):
-#     await send_message_to_discord(message_content)
 
 
 if __name__ == "__main__":
