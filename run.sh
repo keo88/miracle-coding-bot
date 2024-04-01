@@ -26,10 +26,10 @@ while IFS= read -r file; do
     content=$(cat "$file")
     # Append file content to the variable
     file_contents+="
-    # $file
+# $file
 
-    $content
-    "
+$content
+"
 done <<< "$modified_files"
 
 url="$1"
