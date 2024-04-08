@@ -32,18 +32,33 @@ while IFS= read -r file; do
 
     # Map file extensions to programming languages
     case "$extension" in
-        "py") language="python" ;;
-        "js") language="javascript" ;;
-        "java") language="java" ;;
-        "cpp") language="cpp" ;;
-        # Add more cases for other file extensions and corresponding languages as needed
-        *) language="text" ;;  # Default to "text" for unsupported file types
+        "py") 
+        language="Python3"
+        lint="python"
+        ;;
+        "js")
+        language="Javascript"
+        lint="javascript"
+        ;;
+        "java")
+        language="Java"
+        lint="java"
+        ;;
+        "cpp")
+        language="C++"
+        lint="cpp"
+        ;;
+        *)
+        language="text"
+        lint="text"
+        ;;
+      # Default to "text" for unsupported file types
     esac
     file_contents+="
 language: $language
 
 code:
-\`\`\`$language
+\`\`\`$lint
 # $file
 
 $content
