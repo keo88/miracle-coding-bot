@@ -25,28 +25,37 @@ while IFS= read -r file; do
     # Read the content of the file
     content=$(cat "$file")
     # Append file content to the variable
+    # Extract the file extension
+    extension="${file##*.}"
+    # Convert the extension to lowercase
+    extension=$(echo "$extension" | tr '[:upper:]' '[:lower:]')
+
+    # Map file extensions to programming languages
+    case "$extension" in
+        "py") language="python" ;;
+        "js") language="javascript" ;;
+        "java") language="java" ;;
+        "cpp") language="cpp" ;;
+        # Add more cases for other file extensions and corresponding languages as needed
+        *) language="text" ;;  # Default to "text" for unsupported file types
+    esac
     file_contents+="
+language: $language
+
+code:
+\`\`\`$language
 # $file
 
 $content
+\`\`\`
 "
 done <<< "$modified_files"
 
 url="$1"
 
-# Prompt the user to enter the language
-#read -p "Enter the language: " language
-language="python"
-
 # Format the information
 message="url: $url
-
-language: $language
-
-code:
-\`\`\`$language
-$file_contents
-\`\`\`"
+$file_contents"
 echo "$message"
 # Return to the original directory
 cd "$current_dir" || { echo "Failed to change directory back to $current_dir"; exit 1; }
